@@ -48,15 +48,13 @@ export default class PncGroupRegistration extends Vue {
   @Prop({ type: String, required: true })
   courseId!: string;
 
-  @Prop({ type: Boolean, default: false })
-  enrolledToCourse!: boolean;
-
   /* DATA */
 
   private token: string | null = null;
   private student: Student | null = null;
   private groups: Group[] = [];
   private selectedGroupIndex = 0;
+  private enrolledToCourse: boolean | null = null;
 
   /* GETTERS AND SETTERS */
 
@@ -105,8 +103,8 @@ export default class PncGroupRegistration extends Vue {
   async created() {
     try {
       await this.authenticate();
-
       this.groups = await this.$api.courses.groups(this.courseId).getAll();
+      this.enrolledToCourse = await this.$api.courses.checkIfStudentEnrolled(this.courseId, this.studentId);
     } catch (error) {
       console.error(error);
     }

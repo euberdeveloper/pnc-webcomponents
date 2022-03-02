@@ -20,8 +20,8 @@
         <span class="maxPartecipants">{{ group.maxPartecipants }}</span>
       </span>
 
-      <v-row align="center" justify="end">
-        <v-btn text :disabled="enrollButtonDisabled" @click="enroll">
+      <v-row align="center" justify="end" v-if="!checkingIfEnrolledtoCourse">
+        <v-btn text :disabled="false" @click="enroll">
           <span class="group-button">{{ enrollButtonText }}</span>
         </v-btn>
       </v-row>
@@ -77,8 +77,8 @@ export default class GroupCard extends Vue {
   @Prop({ type: Boolean, required: true })
   enrolledInAnotherGroup!: boolean;
 
-  @Prop({ type: Boolean, required: true })
-  enrolledToCourse!: boolean;
+  @Prop({ validator: (value) => typeof value === "boolean" || value === null, required: true })
+  enrolledToCourse!: boolean | null;
 
   /* DATA */
 
@@ -93,6 +93,10 @@ export default class GroupCard extends Vue {
 
   get enrollButtonText(): string {
     return this.enrolledToCourse ? (this.enrolledInThisGroup ? "UNENROLL" : "ENROLL") : "NOT ENROLLED TO COURSE";
+  }
+
+  get checkingIfEnrolledtoCourse(): boolean {
+    return this.enrolledToCourse === null;
   }
 
   get enrollButtonDisabled(): boolean {
