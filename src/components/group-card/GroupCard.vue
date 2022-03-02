@@ -21,7 +21,7 @@
       </span>
 
       <v-row align="center" justify="end" v-if="!checkingIfEnrolledtoCourse">
-        <v-btn text :disabled="false" @click="enroll">
+        <v-btn text :disabled="enrollButtonDisabled" @click="enroll">
           <span class="group-button">{{ enrollButtonText }}</span>
         </v-btn>
       </v-row>
