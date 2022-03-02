@@ -1,6 +1,6 @@
 <template>
   <v-card class="group-card mx-auto px-8" color="#26c6da" dark>
-    <v-card-title class="px-2">
+    <v-card-title class="pa-2">
       <span class="text-h6 font-weight-light d-flex" style="width: 100%">
         <span>{{ group.name }}</span>
         <span class="flex-grow-1" />
@@ -8,11 +8,13 @@
       </span>
     </v-card-title>
 
-    <v-card-text class="text-h6 font-weight-bold px-2">"{{ group.description }}"</v-card-text>
+    <v-card-text class="font-weight-bold px-2">
+      <span class="text-h6">"{{ group.description }}"</span>
+    </v-card-text>
 
     <v-card-actions class="px-2">
-      <v-icon class="mr-1">mdi-account</v-icon>
-      <span class="partecipants-container subheading mr-2">
+      <v-icon class="mr-1">$account</v-icon>
+      <span class="subheading">
         <span class="partecipants">{{ group.partecipants.length }}</span>
         <span class="mx-1">/</span>
         <span class="maxPartecipants">{{ group.maxPartecipants }}</span>
@@ -20,16 +22,16 @@
 
       <v-row align="center" justify="end">
         <v-btn text :disabled="enrollButtonDisabled" @click="enroll">
-          <span>{{ enrollButtonText }}</span>
+          <span class="group-button">{{ enrollButtonText }}</span>
         </v-btn>
       </v-row>
     </v-card-actions>
 
     <div class="arrow back">
-      <v-btn small icon :disabled="backDisabled" @click="$emit('back')"> <v-icon large>$menu-left</v-icon> </v-btn>
+      <v-btn small icon :disabled="backDisabled" @click="$emit('back')"> <v-icon large class="group-icon">$menu-left</v-icon> </v-btn>
     </div>
     <div class="arrow next">
-      <v-btn small icon :disabled="nextDisabled" @click="$emit('next')"> <v-icon large>$menu-right</v-icon> </v-btn>
+      <v-btn small icon :disabled="nextDisabled" @click="$emit('next')"> <v-icon large class="group-icon">$menu-right</v-icon> </v-btn>
     </div>
   </v-card>
 </template>
@@ -144,8 +146,30 @@ export default class GroupCard extends Vue {
     right: 0;
   }
 
-  .partecipants-container {
-    font-size: .875rem!important;
+  .text-h6 {
+    font-size: 20px!important;
+    line-height: 32px!important;
+  }
+  .subheading {
+    font-size: 14px!important;
+  }
+  .group-icon {
+    font-size: 36px!important;
+  }
+  .group-button {
+    font-size: 14px!important;
+    letter-spacing: 1.25px!important;
+  }
+  .px-8 {
+    padding-left: 64px!important;
+    padding-right: 64px!important;
+  }
+  .px-2 {
+    padding-left: 16px!important;
+    padding-right: 16px!important;
+  }
+  .pa-2 {
+    padding: 16px!important;
   }
 }
 </style>

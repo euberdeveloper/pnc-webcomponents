@@ -110,6 +110,17 @@ export default class PncGroupRegistration extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
 @import "vuetify/dist/vuetify.min.css";
+</style>
+
+<style>
+/* This is because vuetify uses rem, so to make it behave everywhere the same I set the root font-size */
+:host {
+  font-size: 100px!important;
+}
+
+* {
+  text-align: left;
+}
 </style>

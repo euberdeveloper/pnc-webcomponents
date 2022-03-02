@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 
-import MenuRight from '@/components/icons/MenuRight.vue';
-import MenuLeft from '@/components/icons/MenuLeft.vue';
+import IconMenuRight from '@/components/icons/IconMenuRight.vue';
+import IconMenuLeft from '@/components/icons/IconMenuLeft.vue';
+import IconAccount from '@/components/icons/IconAccount.vue';
 
 Vue.use(Vuetify);
 
@@ -10,10 +11,13 @@ export default new Vuetify({
     icons: {
         values: {
             'menu-right': {
-                component: MenuRight
+                component: IconMenuRight
             },
             'menu-left': {
-                component: MenuLeft
+                component: IconMenuLeft
+            },
+            'account': {
+                component: IconAccount
             }
         }
     }
