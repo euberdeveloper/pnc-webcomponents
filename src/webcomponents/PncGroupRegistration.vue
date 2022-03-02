@@ -1,5 +1,5 @@
 <template>
-  <v-app style="max-width: 440px">
+  <v-app class="app">
     <v-main>
       <group-card
         :courseId="courseId"
@@ -110,17 +110,25 @@ export default class PncGroupRegistration extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import "vuetify/dist/vuetify.min.css";
 </style>
 
-<style>
+<style lang="scss">
 /* This is because vuetify uses rem, so to make it behave everywhere the same I set the root font-size */
 :host {
-  font-size: 100px!important;
+  font-size: 100px !important;
 }
+</style>
 
-* {
+<style lang="scss">
+.app {
   text-align: left;
+  max-width: 440px;
+
+  .v-application--wrap {
+    height: auto !important;
+    min-height: auto !important;
+  }
 }
 </style>
