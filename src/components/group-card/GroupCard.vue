@@ -34,7 +34,19 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Group } from "pnc-sdk";
 
-@Component
+import { VCard, VCardTitle, VCardText, VCardActions, VIcon, VRow, VBtn } from "vuetify/lib";
+
+@Component({
+  components: {
+    VCard,
+    VCardTitle,
+    VCardText,
+    VCardActions,
+    VIcon,
+    VRow,
+    VBtn,
+  },
+})
 export default class GroupCard extends Vue {
   /* PROPS */
 

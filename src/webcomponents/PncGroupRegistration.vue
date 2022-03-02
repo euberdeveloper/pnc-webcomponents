@@ -10,10 +10,17 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Group, Student } from "pnc-sdk";
 
+import "@/plugins/api";
+import vuetify from "@/plugins/vuetify";
+
+import { VApp, VMain } from "vuetify/lib";
 import GroupCard from "@/components/group-card/GroupCard.vue";
 
 @Component({
+  vuetify,
   components: {
+    VApp,
+    VMain,
     GroupCard,
   },
 })
@@ -59,3 +66,7 @@ export default class PncGroupRegistration extends Vue {
   }
 }
 </script>
+
+<style scoped>
+@import "vuetify/dist/vuetify.min.css";
+</style>
