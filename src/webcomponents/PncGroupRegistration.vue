@@ -1,7 +1,18 @@
 <template>
   <v-app style="max-width: 440px">
     <v-main>
-      <group-card :group="selectedGroup" :backDisabled="backDisabled" :nextDisabled="nextDisabled" @back="back" @next="next" v-if="selectedGroup" />
+      <group-card
+        :courseId="courseId"
+        :studentId="studentId"
+        :group.sync="groups[selectedGroupIndex]"
+        :backDisabled="backDisabled"
+        :nextDisabled="nextDisabled"
+        :enrolledInThisGroup="enrolledInThisGroup"
+        :enrolledInAnotherGroup="enrolledInAnotherGroup"
+        @back="back"
+        @next="next"
+        v-if="selectedGroup"
+      />
     </v-main>
   </v-app>
 </template>
@@ -43,7 +54,7 @@ export default class PncGroupRegistration extends Vue {
   private groups: Group[] = [];
   private selectedGroupIndex = 0;
 
-  /* GETTERS */
+  /* GETTERS AND SETTERS */
 
   get selectedGroup(): Group | null {
     return this.groups[this.selectedGroupIndex] ?? null;
@@ -54,6 +65,14 @@ export default class PncGroupRegistration extends Vue {
   }
   get nextDisabled(): boolean {
     return this.selectedGroupIndex === this.groups.length - 1;
+  }
+
+  get enrolledInThisGroup(): boolean {
+    return this.selectedGroup !== null && this.selectedGroup.partecipants.includes(this.studentId);
+  }
+
+  get enrolledInAnotherGroup(): boolean {
+    return this.groups.some((group, index) => index !== this.selectedGroupIndex && group.partecipants.includes(this.studentId));
   }
 
   /* METHODS */

@@ -19,11 +19,8 @@
       </span>
 
       <v-row align="center" justify="end">
-        <v-btn class="blue--text text--darken-3" text icon @click="$emit('edit')">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn color="red" class="mr-2" icon @click="$emit('remove')">
-          <v-icon>mdi-delete</v-icon>
+        <v-btn text :disabled="enrollButtonDisabled" @click="enroll">
+          <span>{{ enrollButtonText }}</span>
         </v-btn>
       </v-row>
     </v-card-actions>
@@ -57,6 +54,12 @@ import { VCard, VCardTitle, VCardText, VCardActions, VIcon, VRow, VBtn } from "v
 export default class GroupCard extends Vue {
   /* PROPS */
 
+  @Prop({ type: String, required: true })
+  studentId!: string;
+
+  @Prop({ type: String, required: true })
+  courseId!: string;
+
   @Prop({ type: Object, required: true })
   group!: Group;
 
@@ -66,11 +69,50 @@ export default class GroupCard extends Vue {
   @Prop({ type: Boolean, required: true })
   nextDisabled!: boolean;
 
+  @Prop({ type: Boolean, required: true })
+  enrolledInThisGroup!: boolean;
+
+  @Prop({ type: Boolean, required: true })
+  enrolledInAnotherGroup!: boolean;
+
+  /* DATA */
+
+  private loading = false;
+
   /* GETTERS */
 
   get creation(): string {
     // TODO: handle date on sdk
     return new Date(this.group.creationDate).toLocaleDateString();
+  }
+
+  get enrollButtonText(): string {
+    return this.enrolledInThisGroup ? "UNENROLL" : "ENROLL";
+  }
+
+  get enrollButtonDisabled(): boolean {
+    return this.enrolledInAnotherGroup || this.group.partecipants.length === this.group.maxPartecipants || this.loading;
+  }
+
+  /* METHODS */
+
+  async enroll(): Promise<void> {
+    if (!this.enrollButtonDisabled) {
+      try {
+        this.loading = true;
+        let partecipants = [];
+        if (this.enrolledInThisGroup) {
+          await this.$api.courses.groups(this.courseId).removePartecipant(this.group.id, this.studentId);
+          partecipants = this.group.partecipants.filter((id) => id !== this.studentId);
+        } else {
+          await this.$api.courses.groups(this.courseId).addPartecipant(this.group.id, this.studentId);
+          partecipants = [...this.group.partecipants, this.studentId];
+        }
+        this.$emit("update:group", { ...this.group, partecipants });
+      } finally {
+        this.loading = false;
+      }
+    }
   }
 }
 </script>
