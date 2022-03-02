@@ -12,7 +12,7 @@
 
     <v-card-actions class="px-2">
       <v-icon class="mr-1">mdi-account</v-icon>
-      <span class="partecipants subheading mr-2">
+      <span class="partecipants-container subheading mr-2">
         <span class="partecipants">{{ group.partecipants.length }}</span>
         <span class="mx-1">/</span>
         <span class="maxPartecipants">{{ group.maxPartecipants }}</span>
@@ -142,6 +142,10 @@ export default class GroupCard extends Vue {
   }
   .next {
     right: 0;
+  }
+
+  .partecipants-container {
+    font-size: .875rem!important;
   }
 }
 </style>
