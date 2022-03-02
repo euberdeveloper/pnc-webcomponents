@@ -29,10 +29,10 @@
     </v-card-actions>
 
     <div class="arrow back">
-      <v-btn small icon :disabled="backDisabled" @click="$emit('back')"> <v-icon large>mdi-menu-left</v-icon> </v-btn>
+      <v-btn small icon :disabled="backDisabled" @click="$emit('back')"> <v-icon large>$menu-left</v-icon> </v-btn>
     </div>
     <div class="arrow next">
-      <v-btn small icon :disabled="nextDisabled" @click="$emit('next')"> <v-icon large>mdi-menu-right</v-icon> </v-btn>
+      <v-btn small icon :disabled="nextDisabled" @click="$emit('next')"> <v-icon large>$menu-right</v-icon> </v-btn>
     </div>
   </v-card>
 </template>

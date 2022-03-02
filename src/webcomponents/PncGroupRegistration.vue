@@ -1,14 +1,7 @@
 <template>
   <v-app style="max-width: 440px">
     <v-main>
-      <group-card
-        :group="selectedGroup"
-        :backDisabled="backDisabled"
-        :nextDisabled="nextDisabled"
-        @back="back"
-        @next="next"
-        v-if="selectedGroup"
-      />
+      <group-card :group="selectedGroup" :backDisabled="backDisabled" :nextDisabled="nextDisabled" @back="back" @next="next" v-if="selectedGroup" />
     </v-main>
   </v-app>
 </template>
