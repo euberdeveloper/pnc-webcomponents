@@ -9,6 +9,7 @@
         :nextDisabled="nextDisabled"
         :enrolledInThisGroup="enrolledInThisGroup"
         :enrolledInAnotherGroup="enrolledInAnotherGroup"
+        :enrolledToCourse="enrolledToCourse"
         @back="back"
         @next="next"
         v-if="selectedGroup"
@@ -46,6 +47,9 @@ export default class PncGroupRegistration extends Vue {
 
   @Prop({ type: String, required: true })
   courseId!: string;
+
+  @Prop({ type: Boolean, default: false })
+  enrolledToCourse!: boolean;
 
   /* DATA */
 

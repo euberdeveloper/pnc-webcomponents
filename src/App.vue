@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <pnc-group-registration :access-token="accessToken" :student-id="studentId" :course-id="courseId" />
+    <pnc-group-registration :access-token="accessToken" :student-id="studentId" :course-id="courseId" enrolled-to-course />
   </div>
 </template>
 

@@ -77,6 +77,9 @@ export default class GroupCard extends Vue {
   @Prop({ type: Boolean, required: true })
   enrolledInAnotherGroup!: boolean;
 
+  @Prop({ type: Boolean, required: true })
+  enrolledToCourse!: boolean;
+
   /* DATA */
 
   private loading = false;
@@ -89,11 +92,11 @@ export default class GroupCard extends Vue {
   }
 
   get enrollButtonText(): string {
-    return this.enrolledInThisGroup ? "UNENROLL" : "ENROLL";
+    return this.enrolledToCourse ? (this.enrolledInThisGroup ? "UNENROLL" : "ENROLL") : "NOT ENROLLED TO COURSE";
   }
 
   get enrollButtonDisabled(): boolean {
-    return this.enrolledInAnotherGroup || this.group.partecipants.length === this.group.maxPartecipants || this.loading;
+    return !this.enrolledToCourse || this.enrolledInAnotherGroup || this.group.partecipants.length === this.group.maxPartecipants || this.loading;
   }
 
   /* METHODS */
@@ -147,29 +150,29 @@ export default class GroupCard extends Vue {
   }
 
   .text-h6 {
-    font-size: 20px!important;
-    line-height: 32px!important;
+    font-size: 20px !important;
+    line-height: 32px !important;
   }
   .subheading {
-    font-size: 14px!important;
+    font-size: 14px !important;
   }
   .group-icon {
-    font-size: 36px!important;
+    font-size: 36px !important;
   }
   .group-button {
-    font-size: 14px!important;
-    letter-spacing: 1.25px!important;
+    font-size: 14px !important;
+    letter-spacing: 1.25px !important;
   }
   .px-8 {
-    padding-left: 64px!important;
-    padding-right: 64px!important;
+    padding-left: 64px !important;
+    padding-right: 64px !important;
   }
   .px-2 {
-    padding-left: 16px!important;
-    padding-right: 16px!important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
   .pa-2 {
-    padding: 16px!important;
+    padding: 16px !important;
   }
 }
 </style>
