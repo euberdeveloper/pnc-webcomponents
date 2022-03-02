@@ -1,7 +1,14 @@
 <template>
   <v-app style="max-width: 440px">
     <v-main>
-      <group-card :group="groups[0]" v-if="groups.length" />
+      <group-card
+        :group="selectedGroup"
+        :backDisabled="backDisabled"
+        :nextDisabled="nextDisabled"
+        @back="back"
+        @next="next"
+        v-if="selectedGroup"
+      />
     </v-main>
   </v-app>
 </template>
@@ -41,6 +48,20 @@ export default class PncGroupRegistration extends Vue {
   private token: string | null = null;
   private student: Student | null = null;
   private groups: Group[] = [];
+  private selectedGroupIndex = 0;
+
+  /* GETTERS */
+
+  get selectedGroup(): Group | null {
+    return this.groups[this.selectedGroupIndex] ?? null;
+  }
+
+  get backDisabled(): boolean {
+    return this.selectedGroupIndex === 0;
+  }
+  get nextDisabled(): boolean {
+    return this.selectedGroupIndex === this.groups.length - 1;
+  }
 
   /* METHODS */
 
@@ -51,6 +72,16 @@ export default class PncGroupRegistration extends Vue {
     this.student = user;
 
     this.$api.token = token;
+  }
+
+  back(): void {
+    this.selectedGroupIndex--;
+  }
+
+  next(): void {
+    if (!this.nextDisabled) {
+      this.selectedGroupIndex++;
+    }
   }
 
   /* LIFE CYCLE */

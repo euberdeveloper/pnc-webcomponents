@@ -1,6 +1,6 @@
 <template>
-  <v-card class="group-card mx-auto" color="#26c6da" dark>
-    <v-card-title>
+  <v-card class="group-card mx-auto px-8" color="#26c6da" dark>
+    <v-card-title class="px-2">
       <span class="text-h6 font-weight-light d-flex" style="width: 100%">
         <span>{{ group.name }}</span>
         <span class="flex-grow-1" />
@@ -8,9 +8,9 @@
       </span>
     </v-card-title>
 
-    <v-card-text class="text-h6 font-weight-bold">"{{ group.description }}"</v-card-text>
+    <v-card-text class="text-h6 font-weight-bold px-2">"{{ group.description }}"</v-card-text>
 
-    <v-card-actions>
+    <v-card-actions class="px-2">
       <v-icon class="mr-1">mdi-account</v-icon>
       <span class="partecipants subheading mr-2">
         <span class="partecipants">{{ group.partecipants.length }}</span>
@@ -27,6 +27,13 @@
         </v-btn>
       </v-row>
     </v-card-actions>
+
+    <div class="arrow back">
+      <v-btn small icon :disabled="backDisabled" @click="$emit('back')"> <v-icon large>mdi-menu-left</v-icon> </v-btn>
+    </div>
+    <div class="arrow next">
+      <v-btn small icon :disabled="nextDisabled" @click="$emit('next')"> <v-icon large>mdi-menu-right</v-icon> </v-btn>
+    </div>
   </v-card>
 </template>
 
@@ -53,6 +60,12 @@ export default class GroupCard extends Vue {
   @Prop({ type: Object, required: true })
   group!: Group;
 
+  @Prop({ type: Boolean, required: true })
+  backDisabled!: boolean;
+
+  @Prop({ type: Boolean, required: true })
+  nextDisabled!: boolean;
+
   /* GETTERS */
 
   get creation(): string {
@@ -67,6 +80,26 @@ export default class GroupCard extends Vue {
   .name {
     text-decoration: none;
     color: white;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 0;
+
+    width: 32px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .back {
+    left: 0;
+  }
+  .next {
+    right: 0;
   }
 }
 </style>
