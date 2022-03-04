@@ -1,4 +1,4 @@
-import { PncSDK } from 'pnc-sdk';
+import { PncSDK } from '@prebenorwegian/sdk';
 
 declare module 'vue/types/vue' {
     import Vue from 'vue';

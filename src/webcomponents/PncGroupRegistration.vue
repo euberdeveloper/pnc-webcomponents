@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Group, Student } from "pnc-sdk";
+import { Group, Student } from "@prebenorwegian/sdk";
 
 import "@/plugins/api";
 import vuetify from "@/plugins/vuetify";

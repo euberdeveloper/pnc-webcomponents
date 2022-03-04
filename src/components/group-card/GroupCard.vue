@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Group } from "pnc-sdk";
+import { Group } from "@prebenorwegian/sdk";
 
 import { VCard, VCardTitle, VCardText, VCardActions, VIcon, VRow, VBtn } from "vuetify/lib";
 
