@@ -8,8 +8,8 @@
       </span>
     </v-card-title>
 
-    <v-card-text class="font-weight-bold px-2">
-      <span class="text-h6">"{{ group.description }}"</span>
+    <v-card-text class="font-weight-bold text-container px-2">
+      <span class="text-h6" v-html="displayGroupSchedule" />
     </v-card-text>
 
     <v-card-actions class="px-2">
@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Group } from "@prebenorwegian/sdk";
+import { Group, TimeRange } from "@prebenorwegian/sdk";
 
 import { VCard, VCardTitle, VCardText, VCardActions, VIcon, VRow, VBtn } from "vuetify/lib";
 
@@ -82,13 +82,35 @@ export default class GroupCard extends Vue {
 
   /* DATA */
 
-  private loading = false;
+  public loading = false;
 
   /* GETTERS */
 
   get creation(): string {
-    // TODO: handle date on sdk
-    return new Date(this.group.creationDate).toLocaleDateString();
+    return this.group.creationDate.toLocaleDateString();
+  }
+
+  get lecturePeriod() {
+    return {
+      start: this.group.lecturePeriod.start.toLocaleDateString(),
+      end: this.group.lecturePeriod.end.toLocaleDateString(),
+    };
+  }
+
+  get displayGroupSchedule(): string {
+    const weekScheduleDisplay = [
+      this.displayDaySchedule("Monday", this.group.weekSchedule.monday),
+      this.displayDaySchedule("Tuesday", this.group.weekSchedule.tuesday),
+      this.displayDaySchedule("Wednesday", this.group.weekSchedule.wednesday),
+      this.displayDaySchedule("Thursday", this.group.weekSchedule.thursday),
+      this.displayDaySchedule("Friday", this.group.weekSchedule.friday),
+      this.displayDaySchedule("Saturday", this.group.weekSchedule.saturday),
+      this.displayDaySchedule("Sunday", this.group.weekSchedule.sunday),
+    ]
+      .filter((value) => !!value)
+      .join(", ");
+
+    return `From <b>${this.lecturePeriod.start}</b> to <b>${this.lecturePeriod.end}</b> on ${weekScheduleDisplay}`;
   }
 
   get enrollButtonText(): string {
@@ -105,7 +127,11 @@ export default class GroupCard extends Vue {
 
   /* METHODS */
 
-  async enroll(): Promise<void> {
+  private displayDaySchedule(day: string, timeRange: TimeRange | null): string {
+    return timeRange ? `<b>${day}</b> (${timeRange.from} - ${timeRange.to})` : "";
+  }
+
+  public async enroll(): Promise<void> {
     if (!this.enrollButtonDisabled) {
       try {
         this.loading = true;
@@ -127,17 +153,23 @@ export default class GroupCard extends Vue {
 </script>
 
 <style lang="scss" scoped>
+$arrow-width: 32px;
+
 .group-card {
   .name {
     text-decoration: none;
     color: white;
   }
 
+  .text-container {
+    width: calc(100% - #{$arrow-width});
+  }
+
   .arrow {
     position: absolute;
     top: 0;
 
-    width: 32px;
+    width: $arrow-width;
     height: 100%;
 
     display: flex;
